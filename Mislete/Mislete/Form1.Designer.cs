@@ -31,6 +31,7 @@ namespace Mislete
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button goBtn;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.backwardBtn = new System.Windows.Forms.ToolStripButton();
@@ -39,11 +40,29 @@ namespace Mislete
             this.homeBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.label1 = new System.Windows.Forms.Label();
-            this.goBtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.AddPageBtn = new System.Windows.Forms.Button();
+            this.removePageBtn = new System.Windows.Forms.Button();
+            goBtn = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // goBtn
+            // 
+            goBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            goBtn.FlatAppearance.BorderSize = 0;
+            goBtn.Location = new System.Drawing.Point(832, 4);
+            goBtn.Name = "goBtn";
+            goBtn.Size = new System.Drawing.Size(31, 21);
+            goBtn.TabIndex = 4;
+            goBtn.Text = "GO";
+            goBtn.UseVisualStyleBackColor = true;
+            goBtn.Click += new System.EventHandler(this.goBtn_Click);
             // 
             // toolStrip1
             // 
@@ -55,7 +74,7 @@ namespace Mislete
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(893, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1095, 25);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
@@ -116,45 +135,79 @@ namespace Mislete
             this.label1.Text = "Address:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // goBtn
-            // 
-            this.goBtn.Location = new System.Drawing.Point(832, 2);
-            this.goBtn.Name = "goBtn";
-            this.goBtn.Size = new System.Drawing.Size(31, 23);
-            this.goBtn.TabIndex = 4;
-            this.goBtn.Text = "GO";
-            this.goBtn.UseVisualStyleBackColor = true;
-            this.goBtn.Click += new System.EventHandler(this.goBtn_Click);
-            // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(893, 479);
+            this.tabControl1.Size = new System.Drawing.Size(1095, 479);
             this.tabControl1.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.webBrowser1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1087, 453);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(1081, 447);
+            this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // comboBox1
             // 
+            this.comboBox1.AllowDrop = true;
+            this.comboBox1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(162, 4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(664, 21);
             this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.comboBox1_DragDrop);
             this.comboBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.comboBox1_DragEnter);
             this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseDown);
             // 
+            // AddPageBtn
+            // 
+            this.AddPageBtn.Location = new System.Drawing.Point(869, 4);
+            this.AddPageBtn.Name = "AddPageBtn";
+            this.AddPageBtn.Size = new System.Drawing.Size(70, 21);
+            this.AddPageBtn.TabIndex = 6;
+            this.AddPageBtn.Text = "Add Page";
+            this.AddPageBtn.UseVisualStyleBackColor = true;
+            this.AddPageBtn.Click += new System.EventHandler(this.AddPageBtn_Click);
+            // 
+            // removePageBtn
+            // 
+            this.removePageBtn.Location = new System.Drawing.Point(945, 4);
+            this.removePageBtn.Name = "removePageBtn";
+            this.removePageBtn.Size = new System.Drawing.Size(86, 21);
+            this.removePageBtn.TabIndex = 7;
+            this.removePageBtn.Text = "Remove Page";
+            this.removePageBtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 504);
+            this.ClientSize = new System.Drawing.Size(1095, 504);
+            this.Controls.Add(this.removePageBtn);
+            this.Controls.Add(this.AddPageBtn);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.goBtn);
+            this.Controls.Add(goBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.toolStrip1);
@@ -168,10 +221,14 @@ namespace Mislete
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+
 
 
 
@@ -183,10 +240,13 @@ namespace Mislete
         private System.Windows.Forms.ToolStripButton refreshBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button goBtn;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.ToolStripButton homeBtn;
+        private TabPage tabPage1;
+        private WebBrowser webBrowser1;
+        private Button AddPageBtn;
+        private Button removePageBtn;
     }
 }
 

@@ -12,13 +12,11 @@ namespace Mislete
 {
     public partial class Form1 : Form
     {
-        string homePage="";
+        string homePage= "www.google.com";
         
         public Form1()
         {
-            ComboBox text = new ComboBox();
-           text.Text ="https://github.com/gubomirgeorgiev/CSharpProjects";
-            comboBox1.Items.Add(text);
+            
             InitializeComponent();
             this.AllowDrop = true;
             this.DragDrop += new DragEventHandler(this.Form1_DragDrop);
@@ -28,9 +26,9 @@ namespace Mislete
         // Backward button setup
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (webApp.CanGoBack)
+            if (webBrowser1.CanGoBack)
             {
-                webApp.GoBack();
+                webBrowser1.GoBack();
             }
         }
 
@@ -41,9 +39,9 @@ namespace Mislete
         // Forward button setup
         private void forwardBtn_Click(object sender, EventArgs e)
         {
-            if (webApp.CanGoForward)
+            if (webBrowser1.CanGoForward)
             {
-                webApp.GoForward();
+                webBrowser1.GoForward();
             }
         }
 
@@ -56,38 +54,38 @@ namespace Mislete
         {
 
         }
-        WebBrowser webApp = new WebBrowser();
+       
         int i = 0;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            webApp = new WebBrowser();
-            webApp.ScriptErrorsSuppressed = true;
-            webApp.Dock = DockStyle.Fill;
-            webApp.Visible = true;
-            //webApp.DocumentCompleted += ;
+            webBrowser1.Navigate(homePage);
+            webBrowser1.ScriptErrorsSuppressed = true;
+            webBrowser1.Dock = DockStyle.Fill;
+            webBrowser1.Visible = true;
+            webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
             tabControl1.TabPages.Add("New Tab");
             tabControl1.SelectTab(i);
-            tabControl1.SelectedTab.Controls.Add(webApp);
-            i += i;
+            tabControl1.SelectedTab.Controls.Add(webBrowser1);
+            i += 1;
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
             if (comboBox1.Equals(""))
-            { 
-                webApp.Navigate(homePage);
+            {
+                webBrowser1.Navigate(homePage);
                 }
             
         }
         //SETTING UP REFRESH BUTTON
         private void refreshBtn_Click(object sender, EventArgs e)
         {
-            if (webApp.Url != null && comboBox1.Text != null)
+            if (webBrowser1.Url != null && comboBox1.Text != null)
             {
-                if (webApp.Url.Equals(comboBox1.Text))
+                if (webBrowser1.Url.Equals(comboBox1.Text))
                 {
-                    webApp.Refresh();
+                    webBrowser1.Refresh();
                 }
             }
         }
@@ -112,15 +110,17 @@ namespace Mislete
                 e.Effect = DragDropEffects.None;
             }
         }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //comboBox1.DoDragDrop(comboBox1.Text, DragDropEffects.Copy | DragDropEffects.Move);
-            comboBox1.Text = "google.com";
-        }
 
         private void goBtn_Click(object sender, EventArgs e)
-        {
-            webApp.Navigate(comboBox1.Text);
+        {   
+            //Navigate webbrowse1 to the text in combobox
+            ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
+            //If combobox contais texts add the text to combobox "history"
+            if (!comboBox1.Items.Contains(comboBox1.Text))
+            {
+                comboBox1.Items.Add(comboBox1.Text);
+            }
+            //webBrowser1.Navigate(comboBox1.Text);
         }
 
         private void comboBox1_DragDrop(object sender, DragEventArgs e)
@@ -146,7 +146,13 @@ namespace Mislete
         {
             if (e.KeyCode == Keys.Enter)
             {
-                webApp.Navigate(comboBox1.Text);
+               e.SuppressKeyPress = true;
+                //Navigates to text in combobox
+               ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
+                if (!comboBox1.Items.Contains(comboBox1.Text))
+                {
+                    comboBox1.Items.Add(comboBox1.Text);
+                }
             }
         }
         // Accept the drop.
@@ -181,6 +187,29 @@ namespace Mislete
                 // Don't allow any other drop.
                 e.Effect = DragDropEffects.None;
             }
+        }
+        //Tabcontrols tab takes website name
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            tabControl1.SelectedTab.Text = ((WebBrowser)tabControl1.SelectedTab.Controls[0]).DocumentTitle;
+        }
+        //add page button action
+        private void AddPageBtn_Click(object sender, EventArgs e)
+        {
+            webBrowser1.Navigate(homePage);
+            webBrowser1.ScriptErrorsSuppressed = true;
+            webBrowser1.Dock = DockStyle.Fill;
+            webBrowser1.Visible = true;
+            webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted;
+            tabControl1.TabPages.Add("New Tab");
+            tabControl1.SelectTab(i);
+            tabControl1.SelectedTab.Controls.Add(webBrowser1);
+            i += 1;
+        }
+
+        private void removePageBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
