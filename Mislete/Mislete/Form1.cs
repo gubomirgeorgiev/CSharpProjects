@@ -13,7 +13,8 @@ namespace Mislete
     public partial class Form1 : Form
     {
         string homePage= "www.google.com";
-        
+        int i = 0; //Tab counter
+        WebBrowser webBrowser1 = new WebBrowser();
         public Form1()
         {
             
@@ -24,17 +25,17 @@ namespace Mislete
         }
         
         // Backward button setup
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void goBtn_Click(object sender, EventArgs e)
         {
-            if (webBrowser1.CanGoBack)
+            //Navigate webbrowse1 to the text in combobox
+            ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
+            //If combobox contais texts add the text to combobox "history"
+            if (!comboBox1.Items.Contains(comboBox1.Text))
             {
-                webBrowser1.GoBack();
+                comboBox1.Items.Add(comboBox1.Text);
             }
-        }
+            //webBrowser1.Navigate(comboBox1.Text);
 
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            toolStrip1.AllowDrop = true;
         }
         // Forward button setup
         private void forwardBtn_Click(object sender, EventArgs e)
@@ -44,22 +45,9 @@ namespace Mislete
                 webBrowser1.GoForward();
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-       
-        int i = 0;
-
+        // Here loads the first page
         private void Form1_Load(object sender, EventArgs e)
         {
-            webBrowser1.Navigate(homePage);
             webBrowser1.ScriptErrorsSuppressed = true;
             webBrowser1.Dock = DockStyle.Fill;
             webBrowser1.Visible = true;
@@ -67,32 +55,27 @@ namespace Mislete
             tabControl1.TabPages.Add("New Tab");
             tabControl1.SelectTab(i);
             tabControl1.SelectedTab.Controls.Add(webBrowser1);
+            ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(homePage);
             i += 1;
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
-            if (comboBox1.Equals(""))
-            {
-                webBrowser1.Navigate(homePage);
-                }
-            
+            webBrowser1.Navigate(homePage);
         }
-        //SETTING UP REFRESH BUTTON
+        //REFRESH BUTTON
         private void refreshBtn_Click(object sender, EventArgs e)
         {
-            if (webBrowser1.Url != null && comboBox1.Text != null)
+            if (tabControl1.SelectedTab.Text != null)
             {
-                if (webBrowser1.Url.Equals(comboBox1.Text))
-                {
                     webBrowser1.Refresh();
-                }
+                
             }
         }
         //defininf mouse drop action to make copy or move action
         private void comboBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            ComboBox tb = (ComboBox)sender;
+            ToolStripComboBox tb = (ToolStripComboBox)sender;
             tb.SelectAll();
             tb.DoDragDrop(tb.Text, DragDropEffects.Copy | DragDropEffects.Move);
         }
@@ -110,22 +93,18 @@ namespace Mislete
                 e.Effect = DragDropEffects.None;
             }
         }
-
-        private void goBtn_Click(object sender, EventArgs e)
-        {   
-            //Navigate webbrowse1 to the text in combobox
-            ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
-            //If combobox contais texts add the text to combobox "history"
-            if (!comboBox1.Items.Contains(comboBox1.Text))
+        // go back btn
+        private void toolStripButton1_Click (object sender, EventArgs e)
+        {
+            if (webBrowser1.CanGoBack)
             {
-                comboBox1.Items.Add(comboBox1.Text);
+                webBrowser1.GoBack();
             }
-            //webBrowser1.Navigate(comboBox1.Text);
         }
 
         private void comboBox1_DragDrop(object sender, DragEventArgs e)
         {
-            ComboBox tb = (ComboBox)sender;
+            ToolStripComboBox tb = (ToolStripComboBox)sender;
             tb.Text = (string)e.Data.GetData(DataFormats.Text);
             homeBtn.Text = tb.Text;
             homePage = comboBox1.Text;
@@ -139,21 +118,6 @@ namespace Mislete
             comboBox1.DragEnter += new DragEventHandler(comboBox1_DragEnter);
             comboBox1.MouseDown += new MouseEventHandler(comboBox1_MouseDown);
             comboBox1.DragDrop += new DragEventHandler(comboBox1_DragDrop);
-        }
-
-        //Opening web page by pressing enter key
-        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-               e.SuppressKeyPress = true;
-                //Navigates to text in combobox
-               ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
-                if (!comboBox1.Items.Contains(comboBox1.Text))
-                {
-                    comboBox1.Items.Add(comboBox1.Text);
-                }
-            }
         }
         // Accept the drop.
         private void Form1_DragDrop(object sender, DragEventArgs e)
@@ -193,10 +157,24 @@ namespace Mislete
         {
             tabControl1.SelectedTab.Text = ((WebBrowser)tabControl1.SelectedTab.Controls[0]).DocumentTitle;
         }
-        //add page button action
-        private void AddPageBtn_Click(object sender, EventArgs e)
+        //open page by pressing enter key
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            webBrowser1.Navigate(homePage);
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                //Navigates to text in combobox
+                ((WebBrowser)tabControl1.SelectedTab.Controls[0]).Navigate(comboBox1.Text);
+                if (!comboBox1.Items.Contains(comboBox1.Text))
+                {
+                    comboBox1.Items.Add(comboBox1.Text);
+                }
+            }
+        }
+        //add page button action
+        private void AddPageBtn_Click_1(object sender, EventArgs e)
+        {
+            webBrowser1 = new WebBrowser();
             webBrowser1.ScriptErrorsSuppressed = true;
             webBrowser1.Dock = DockStyle.Fill;
             webBrowser1.Visible = true;
@@ -206,10 +184,26 @@ namespace Mislete
             tabControl1.SelectedTab.Controls.Add(webBrowser1);
             i += 1;
         }
-
+        // Remove pages
         private void removePageBtn_Click(object sender, EventArgs e)
         {
+            if (tabControl1.TabPages.Count -1 > 0)
+            {
+                tabControl1.TabPages.RemoveAt(tabControl1.SelectedIndex);
+                tabControl1.SelectTab(tabControl1.TabPages.Count - 1);
+                i -= 1;
+            }
+        }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        //homebutton action
+        private void toolStrip1_DragDrop(object sender, DragEventArgs e)
+        {
+            ToolStripButton tb = (ToolStripButton)sender;
+            homePage = (string)e.Data.GetData(DataFormats.Text);
         }
     }
 }
