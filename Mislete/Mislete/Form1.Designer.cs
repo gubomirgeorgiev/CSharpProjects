@@ -1,4 +1,7 @@
-﻿namespace Mislete
+﻿using System;
+using System.Windows.Forms;
+
+namespace Mislete
 {
     partial class Form1
     {
@@ -160,12 +163,17 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mislete";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
+
 
         #endregion
 
@@ -174,11 +182,11 @@
         private System.Windows.Forms.ToolStripButton forwardBtn;
         private System.Windows.Forms.ToolStripButton refreshBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton homeBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button goBtn;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.ToolStripButton homeBtn;
     }
 }
 
