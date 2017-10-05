@@ -78,7 +78,7 @@ namespace Mislete
             this.backwardBtn.Name = "backwardBtn";
             this.backwardBtn.Size = new System.Drawing.Size(31, 37);
             this.backwardBtn.Text = "backwardBtn";
-            this.backwardBtn.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.backwardBtn.Click += new System.EventHandler(this.goBackBtn_Click);
             // 
             // forwardBtn
             // 
@@ -111,7 +111,7 @@ namespace Mislete
             this.homeBtn.Name = "homeBtn";
             this.homeBtn.Size = new System.Drawing.Size(31, 37);
             this.homeBtn.Text = "homeBtn";
-            this.homeBtn.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            this.homeBtn.Click += new System.EventHandler(this.homeBtn_Click);
             // 
             // toolStripSeparator1
             // 
@@ -140,7 +140,7 @@ namespace Mislete
             this.goBtn.Name = "goBtn";
             this.goBtn.Size = new System.Drawing.Size(31, 37);
             this.goBtn.Text = "Go";
-            this.goBtn.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.goBtn.Click += new System.EventHandler(this.goBtn_Click);
             // 
             // AddPageBtn
             // 
@@ -188,12 +188,14 @@ namespace Mislete
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mislete";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.homeBtn_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.homeBtn_DragEnte);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboBox1_MouseDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.toolStrip1.AllowDrop = true;
+            this.homeBtn.AllowDrop = true;
 
         }
 
